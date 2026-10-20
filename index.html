@@ -150,6 +150,32 @@ button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
  .authcopy h1{font-size:40px}#auth{padding:16px}#auth .box{padding:18px;border-radius:22px}
 }
 @media(max-width:360px){.bar button{padding:5px 10px}.tag{font-size:11px;padding:2px 8px}}
+
+/* ---- phone pass 2 ---- */
+.bg{display:contents}
+details.risk summary{cursor:pointer;list-style:none}details.risk summary::-webkit-details-marker{display:none}
+details.risk summary::after{content:"+";float:right;color:var(--m);padding-left:8px}details.risk[open] summary::after{content:"–"}
+@media(max-width:900px){
+ .bar{display:block;overflow:visible;margin:0;padding:0 0 6px}
+ .bar>.sep{display:none}
+ .bg{display:flex;align-items:center;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:3px 0}
+ .bg::-webkit-scrollbar{display:none}.bg>*{flex:none}
+ #tfs,#tg{flex-wrap:nowrap}
+}
+@media(max-width:600px){
+ body{font-size:15px}.m{font-size:13px}
+ .bar{width:calc(100% + 20px);max-width:none;margin:0 -10px;padding:0 10px 6px}
+ .bg{padding-left:0}
+ #sq{width:120px!important}
+ .panel{padding:8px 8px 10px}
+ #cw{padding:6px 4px 10px;border-left:0;border-right:0;border-radius:0;margin:0 -10px}
+ #ro{white-space:normal;overflow:visible;min-height:3.4em;font-size:11.5px;line-height:1.45;margin:2px 8px 6px}
+ #hint{margin:8px 10px 0}
+ #cv{height:58vh;height:58dvh;min-height:320px;border-radius:0}
+ .hero{padding:12px 2px 8px}
+ .tag{max-width:46vw;white-space:nowrap}
+}
+@media(max-height:500px) and (orientation:landscape){#hp{font-size:44px}.hero{padding:8px 4px}#ro{min-height:0}}
 </style></head><body>
 <div class="sky" aria-hidden="true"><i></i><i></i><i></i><b></b></div>
 <div id="auth"><div class="authgrid"><div class="authcopy"><span class="brand">SignalLab</span><h1>Rule-based chart analysis, live.</h1><p>BTC/USDT candles streamed from Binance spot, read by rules you can inspect and change. Not trading advice.</p></div>
@@ -161,9 +187,8 @@ button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 <header><div class="hl"><span class="brand">SignalLab</span><span class="tag" id="dtag">Connecting…</span></div>
 <div class="hr"><span class="m" id="who"></span><button onclick="logout()">Sign out</button></div></header>
 <section class="hero"><div><div class="m" id="hs"></div><div id="hp">–</div></div><div class="hr2"><div id="hc"></div><div class="m">vs prior candle</div><div class="m" id="fresh"></div></div></section>
-<div class="risk"><b>Risk disclosure:</b> Trading carries a substantial risk of loss. Everything shown is automated, rule-based analysis of <b>live Binance spot market data (single-exchange prices)</b>, offered as uncertain observations for you to judge. It is not investment advice, makes no accuracy or win-rate claim, and places no trades.</div>
-<div class="bar"><input id="sq" list="sl" placeholder="Search symbol" style="width:140px" onchange="setSym(this.value)"><datalist id="sl"></datalist>
-<span id="tfs"></span><span class="sep"></span><button title="Zoom in (time)" onclick="zoom(.7)">＋</button><button title="Zoom out (time)" onclick="zoom(1.4)">－</button><button title="Move chart up" onclick="vpan(1)">↑</button><button title="Move chart down" onclick="vpan(-1)">↓</button><button title="Stretch price scale" onclick="zoomY(.8)">⇕＋</button><button title="Compress price scale" onclick="zoomY(1.25)">⇕－</button><button id="fitb" title="Auto-fit price scale (or double-click chart)" onclick="fitY()">Fit</button><button title="Jump to latest candle" onclick="latest()">Latest ⇥</button><span class="sep"></span><span id="tg"></span><span class="sep"></span><button onclick="toggleW()" id="wb">☆ Watch</button></div>
+<details class="risk" id="rk"><summary><b>Risk disclosure:</b> not investment advice; trading carries a substantial risk of loss.</summary><div style="margin-top:6px"><b>Risk disclosure:</b> Trading carries a substantial risk of loss. Everything shown is automated, rule-based analysis of <b>live Binance spot market data (single-exchange prices)</b>, offered as uncertain observations for you to judge. It is not investment advice, makes no accuracy or win-rate claim, and places no trades.</div></details><script>if(innerWidth>600)document.getElementById("rk").open=true</script>
+<div class="bar"><div class="bg"><input id="sq" list="sl" placeholder="Search symbol" style="width:140px" onchange="setSym(this.value)"><datalist id="sl"></datalist><span id="tfs"></span><button onclick="toggleW()" id="wb">☆ Watch</button></div><span class="sep"></span><div class="bg"><button title="Zoom in (time)" onclick="zoom(.7)">＋</button><button title="Zoom out (time)" onclick="zoom(1.4)">－</button><button title="Move chart up" onclick="vpan(1)">↑</button><button title="Move chart down" onclick="vpan(-1)">↓</button><button title="Stretch price scale" onclick="zoomY(.8)">⇕＋</button><button title="Compress price scale" onclick="zoomY(1.25)">⇕－</button><button id="fitb" title="Auto-fit price scale (or double-click chart)" onclick="fitY()">Fit</button><button title="Jump to latest candle" onclick="latest()">Latest ⇥</button></div><span class="sep"></span><div class="bg"><span id="tg"></span></div></div>
 <main><div class="panel" id="cw"><div id="ro"></div><canvas id="cv"></canvas><div class="m" id="hint">Drag in any direction to move the chart · wheel = zoom time · Shift+wheel = zoom price · drag the price axis to stretch · double-click = auto-fit · pinch on touch · arrow keys also work. Times UTC. Prices: Binance spot. Analysis uses closed candles only; the forming candle is drawn but not analysed.</div></div>
 <div class="panel" id="side"><div class="tabs" id="tabs"></div><div id="tc"></div></div></main>
 <div id="toast"></div>
